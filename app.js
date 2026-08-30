@@ -94,6 +94,9 @@ function initMap() {
         maxZoom: 18
     }).addTo(map);
 
+    // Prevent map zoom on double tap (iOS)
+    map.doubleClickZoom.disable();
+
     // Create markers for each city
     Object.keys(cities).forEach(cityName => {
         createMarker(cityName);
@@ -363,9 +366,6 @@ document.addEventListener('click', (e) => {
         sidebar.classList.remove('open');
     }
 });
-
-// Prevent map zoom on double tap (iOS)
-map.doubleClickZoom.disable();
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', initMap);
