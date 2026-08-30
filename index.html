@@ -142,11 +142,15 @@
         }
 
         .stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
             padding: 15px 20px;
-            background: #f9f9f9;
-            border-top: 2px solid #e0e0e0;
-            position: sticky;
-            bottom: 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            min-width: 200px;
         }
 
         .stat-item {
@@ -168,7 +172,7 @@
 
         .legend {
             position: absolute;
-            top: 20px;
+            top: 100px;
             left: 20px;
             background: white;
             padding: 15px;
@@ -341,10 +345,23 @@
             }
 
             .legend {
-                top: 10px;
+                top: 90px;
                 left: 10px;
                 font-size: 11px;
                 padding: 10px;
+            }
+
+            .stats {
+                top: 10px;
+                right: 10px;
+                padding: 10px 15px;
+                font-size: 12px;
+                min-width: 150px;
+            }
+
+            .stats .stat-item {
+                font-size: 12px;
+                padding: 5px 0;
             }
 
             .distance-info {
@@ -437,8 +454,11 @@
                 <button class="btn" onclick="applyFilters()">Apply Filters</button>
                 <button class="btn btn-secondary" onclick="resetFilters()">Reset All</button>
                 <button class="btn btn-secondary" onclick="toggleDistanceMode()">📏 Distance Mode</button>
+                <button class="btn btn-secondary" onclick="toggleAttractions()">🏖️ Show Attractions</button>
             </div>
+        </div>
 
+        <div id="map">
             <div class="stats">
                 <div class="stat-item">
                     <span>Total Matches:</span>
@@ -453,9 +473,6 @@
                     <span class="stat-value">8</span>
                 </div>
             </div>
-        </div>
-
-        <div id="map">
             <div class="legend">
                 <h4>Host Cities</h4>
                 <div class="legend-item">

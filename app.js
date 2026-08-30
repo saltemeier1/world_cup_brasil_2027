@@ -10,6 +10,21 @@ const cities = {
     'Recife': { lat: -8.0476, lng: -34.8770, stadium: 'Arena de Pernambuco' }
 };
 
+// Major Brazil attractions near host cities
+const attractions = [
+    { name: 'Christ the Redeemer', city: 'Rio de Janeiro', lat: -22.9519, lng: -43.2105, icon: '🗽' },
+    { name: 'Sugarloaf Mountain', city: 'Rio de Janeiro', lat: -22.9486, lng: -43.1566, icon: '⛰️' },
+    { name: 'Copacabana Beach', city: 'Rio de Janeiro', lat: -22.9711, lng: -43.1822, icon: '🏖️' },
+    { name: 'Iguazu Falls', city: 'Porto Alegre', lat: -25.6953, lng: -54.4367, icon: '💧' },
+    { name: 'Pelourinho', city: 'Salvador', lat: -12.9714, lng: -38.5124, icon: '🏛️' },
+    { name: 'Amazon Theatre', city: 'Brasília', lat: -3.1302, lng: -60.0217, icon: '🎭' },
+    { name: 'Ibirapuera Park', city: 'São Paulo', lat: -23.5875, lng: -46.6576, icon: '🌳' },
+    { name: 'São Paulo Cathedral', city: 'São Paulo', lat: -23.5505, lng: -46.6396, icon: '⛪' },
+    { name: 'Pampulha Modern Ensemble', city: 'Belo Horizonte', lat: -19.8511, lng: -43.9708, icon: '🏛️' },
+    { name: 'Beach Park', city: 'Fortaleza', lat: -3.8103, lng: -38.4003, icon: '🎢' },
+    { name: 'Recife Old Town', city: 'Recife', lat: -8.0631, lng: -34.8711, icon: '🏛️' }
+];
+
 // Match data
 const matches = [
     { date: '2027-06-24', city: 'Rio de Janeiro', round: 'Group Stage', match: 'Group A — Brazil (Opening Match)', group: 'A', brazil: true },
@@ -80,10 +95,13 @@ const matches = [
 
 let map;
 let markers = {};
+let attractionMarkers = [];
+let cityLabels = [];
 let filteredMatches = matches;
 let distanceMode = false;
 let selectedCities = [];
 let distanceLine = null;
+let attractionsVisible = false;
 
 // Initialize the map
 function initMap() {
@@ -100,6 +118,7 @@ function initMap() {
     // Create markers for each city
     Object.keys(cities).forEach(cityName => {
         createMarker(cityName);
+        createCityLabel(cityName);
     });
 
     // Initialize group checkboxes
@@ -137,6 +156,25 @@ function createMarker(cityName) {
     marker.bindPopup(popupContent, { maxWidth: 300, className: 'match-popup' });
     
     markers[cityName] = marker;
+}
+
+function createCityLabel(cityName) {
+    const city = cities[cityName];
+    
+    const labelIcon = L.divIcon({
+        className: 'city-label',
+        html: `<div style="background: rgba(255,255,255,0.9); padding: 4px 8px; border-radius: 12px; font-weight: 600; font-size: 11px; color: #002776; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.3); border: 1px solid #009c3b;">${cityName}</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [-15, 40]
+    });
+    
+    const label = L.marker([city.lat, city.lng], { 
+        icon: labelIcon,
+        interactive: false,
+        zIndexOffset: -1000
+    }).addTo(map);
+    
+    cityLabels.push(label);
 }
 
 function createPopupContent(cityName, cityMatches) {
@@ -355,6 +393,38 @@ function calculateDistance(city1Name, city2Name) {
 
 function toRad(degrees) {
     return degrees * Math.PI / 180;
+}
+
+function toggleAttractions() {
+    attractionsVisible = !attractionsVisible;
+    
+    if (attractionsVisible) {
+        // Create attraction markers
+        attractions.forEach(attraction => {
+            const attractionIcon = L.divIcon({
+                className: 'attraction-marker',
+                html: `<div style="font-size: 24px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">${attraction.icon}</div>`,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+            
+            const marker = L.marker([attraction.lat, attraction.lng], { icon: attractionIcon })
+                .addTo(map)
+                .bindPopup(`
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; margin-bottom: 5px;">${attraction.icon}</div>
+                        <strong>${attraction.name}</strong>
+                        <p style="font-size: 12px; color: #666; margin: 5px 0 0 0;">Near ${attraction.city}</p>
+                    </div>
+                `, { className: 'attraction-popup' });
+            
+            attractionMarkers.push(marker);
+        });
+    } else {
+        // Remove attraction markers
+        attractionMarkers.forEach(marker => map.removeLayer(marker));
+        attractionMarkers = [];
+    }
 }
 
 function toggleSidebar() {
