@@ -203,8 +203,16 @@ function applyFilters() {
         // Brazil filter
         if (brazilOnly && !match.brazil) return false;
         
-        // Group filter (only for group stage matches)
-        if (match.group && !selectedGroups.includes(match.group)) return false;
+        // Group filter logic:
+        // - If it's a group stage match, check if its group is selected
+        // - If it's a knockout match (no group), only show if round filter is set to 'all' or specific knockout round
+        if (match.group) {
+            // Group stage match - must be in selected groups
+            if (!selectedGroups.includes(match.group)) return false;
+        } else {
+            // Knockout match - only show if round filter allows it
+            if (round === 'Group Stage') return false;
+        }
         
         return true;
     });
