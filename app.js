@@ -163,7 +163,7 @@ function createCityLabel(cityName) {
     
     const labelIcon = L.divIcon({
         className: 'city-label',
-        html: `<div style="background: rgba(255,255,255,0.9); padding: 4px 8px; border-radius: 12px; font-weight: 600; font-size: 11px; color: #002776; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.3); border: 1px solid #009c3b;">${cityName}</div>`,
+        html: `<div style="font-weight: 700; font-size: 13px; color: #002776; white-space: nowrap; text-shadow: 1px 1px 2px rgba(255,255,255,0.9), -1px -1px 2px rgba(255,255,255,0.9), 1px -1px 2px rgba(255,255,255,0.9), -1px 1px 2px rgba(255,255,255,0.9);">${cityName}</div>`,
         iconSize: [0, 0],
         iconAnchor: [-15, 40]
     });
