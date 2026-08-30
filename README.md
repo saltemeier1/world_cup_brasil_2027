@@ -2,44 +2,8 @@
 
 An interactive web app to help you plan your 2027 World Cup journey in Brazil! Filter matches by date, round, group, and see distances between host cities.
 
-## 🚀 Quick Start (Local)
-
-Simply open `index.html` in your web browser!
-
-## 📱 Share with Friends - Deploy to GitHub Pages (FREE!)
-
-### Step 1: Create a GitHub Account
-1. Go to [github.com](https://github.com) and sign up (if you don't have an account)
-
-### Step 2: Create a New Repository
-1. Click the **+** icon in the top right → **New repository**
-2. Name it: `worldcup-2027-brazil`
-3. Make it **Public**
-4. Click **Create repository**
-
-### Step 3: Upload Files
-1. Click **uploading an existing file**
-2. Drag and drop these files:
-   - `index.html`
-   - `app.js`
-   - `README.md`
-3. Click **Commit changes**
-
-### Step 4: Enable GitHub Pages
-1. Go to **Settings** tab in your repository
-2. Click **Pages** in the left sidebar
-3. Under **Source**, select **main** branch
-4. Click **Save**
-5. Wait 1-2 minutes
-
-### Step 5: Get Your Link! 🎉
-Your app will be available at:
 ```
 https://YOUR-USERNAME.github.io/worldcup-2027-brazil/
-```
-
-**Share this link with your friends!** It works on any device - iPhone, Android, desktop!
-
 ---
 
 ## 🌟 Features
