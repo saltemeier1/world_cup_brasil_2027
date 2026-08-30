@@ -367,5 +367,5 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', initMap);
+// Initialize on load - wait for all resources including Leaflet library
+window.addEventListener('load', initMap);
